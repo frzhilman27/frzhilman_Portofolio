@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Faris Hilman Ramadhan | Portfolio</title>
     <meta name="description" content="Portfolio of Faris Hilman Ramadhan, showcasing web development projects.">
+    <!-- Open Graph / SEO Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Faris Hilman Ramadhan | Web Developer Portfolio">
+    <meta property="og:description" content="I build dynamic web experiences focused on performance and seamless interactions. View my projects and skills.">
+    <meta property="og:image" content="foto-.jpg">
+    <meta property="og:url" content="https://frzhilman27.github.io/frzhilman_Portofolio/">
     <link
         href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Syne:wght@400;600;800&display=swap"
         rel="stylesheet">
@@ -66,6 +72,7 @@
             <div class="hero-buttons">
                 <a href="#projects" class="btn primary-btn">View My Work</a>
                 <a href="https://github.com/frzhilman27" target="_blank" class="btn secondary-btn">My GitHub</a>
+                <a href="https://drive.google.com/drive/folders/1LJN9dOdQouTNKVeVhFu7vikdu15hUFtT?usp=drive_link" id="cv-link" target="_blank" class="btn secondary-btn" style="border-color: var(--primary); color: var(--text-color);"><i class="fa-solid fa-download" style="margin-right: 8px;"></i> Download CV</a>
             </div>
         </div>
         <div class="blob-wrapper">
@@ -139,7 +146,7 @@
             </div>
 
             <div class="contact-form-wrapper">
-                <form class="contact-form" onsubmit="event.preventDefault(); alert('Message sent successfully!');">
+                <form class="contact-form" id="contact-form">
                     <div class="input-group">
                         <input type="text" id="name" required placeholder=" ">
                         <label for="name">Your Name</label>
@@ -159,7 +166,14 @@
     </section>
 
     <footer>
-        <p>&copy; 2026 Faris Hilman Ramadhan. Built with modern web technologies.</p>
+        <div class="footer-content">
+            <p>&copy; 2026 Faris Hilman Ramadhan. Built with modern web technologies.</p>
+            <div class="footer-socials">
+                <a href="https://github.com/frzhilman27" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                <a href="https://www.instagram.com/frzhilman_?igsh=MWk2bTZhejEzM3VyaA==" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="mailto:Frzhilman27@gmail.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+        </div>
     </footer>
 
     <script src="script.js"></script>
