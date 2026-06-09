@@ -813,7 +813,7 @@ body[data-theme="vibe"] .lofi-icon {
     }
 
     .hero {
-        flex-direction: column;
+        flex-direction: column-reverse; /* Profil gambar di atas teks pada tampilan HP */
         text-align: center;
         padding-top: 7rem;
     }
