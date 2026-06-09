@@ -37,6 +37,9 @@
             <li><a href="#contact">Contact</a></li>
         </ul>
         <div class="nav-actions">
+            <button class="vibe-toggle" id="vibe-toggle" aria-label="Toggle Vibe Mode" title="Vibe Mode">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+            </button>
             <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
                 <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -99,6 +102,7 @@
                     <span class="skill-tag"><i class="fa-brands fa-git-alt"></i> Git & GitHub</span>
                     <span class="skill-tag"><i class="fa-solid fa-laptop-code"></i> Frontend</span>
                     <span class="skill-tag"><i class="fa-solid fa-gears"></i> Backend</span>
+                    <span class="skill-tag" style="background: linear-gradient(45deg, #ff00ff, #00ffff); color: #0a0a0a; border:none;"><i class="fa-solid fa-headphones"></i> Vibe Coding</span>
                 </div>
             </div>
         </div>
@@ -176,6 +180,20 @@
         </div>
     </footer>
 
+    <!-- Lo-Fi Music Player Widget -->
+    <div class="lofi-widget" id="lofi-widget">
+        <div class="lofi-content">
+            <div class="lofi-icon"><i class="fa-solid fa-music"></i></div>
+            <div class="lofi-info">
+                <span class="lofi-title">Lofi Girl Radio</span>
+                <span class="lofi-status" id="lofi-status">Ready</span>
+            </div>
+            <button class="lofi-control" id="lofi-play-btn"><i class="fa-solid fa-play"></i></button>
+        </div>
+        <div id="youtube-player" style="display:none;"></div>
+    </div>
+
+    <script src="https://www.youtube.com/iframe_api"></script>
     <script src="script.js"></script>
 </body>
 

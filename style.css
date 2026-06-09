@@ -663,6 +663,145 @@ footer {
     border-color: var(--primary);
 }
 
+/* Vibe Mode & Lo-Fi Player */
+[data-theme="vibe"] {
+    --bg-color: #05051a;
+    --text-color: #e0e0ff;
+    --card-bg: rgba(20, 10, 40, 0.7);
+    --card-border: rgba(255, 0, 255, 0.3);
+    --primary: #ff00ff;
+    --primary-hover: #ff66ff;
+    --secondary: #00ffff;
+    --nav-bg: rgba(5, 5, 26, 0.85);
+    --shadow: 0 0 20px rgba(255, 0, 255, 0.2);
+}
+
+body[data-theme="vibe"] {
+    background-image: 
+        linear-gradient(rgba(255, 0, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 30px 30px;
+    background-position: center bottom;
+    animation: vibe-grid 20s linear infinite;
+}
+
+@keyframes vibe-grid {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 30px; }
+}
+
+body[data-theme="vibe"] .blob {
+    box-shadow: 0 0 100px var(--primary);
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+}
+
+body[data-theme="vibe"] .project-card {
+    border-color: var(--primary);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
+}
+body[data-theme="vibe"] .project-card:hover {
+    box-shadow: 0 0 30px rgba(255, 0, 255, 0.4);
+}
+
+.vibe-toggle {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    font-size: 1.2rem;
+}
+
+.vibe-toggle:hover {
+    background-color: var(--card-bg);
+    color: #ff00ff;
+    text-shadow: 0 0 10px #ff00ff;
+}
+
+body[data-theme="vibe"] .vibe-toggle {
+    color: #00ffff;
+    text-shadow: 0 0 10px #00ffff;
+}
+
+/* Lofi Widget */
+.lofi-widget {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 50px;
+    padding: 0.8rem 1.5rem;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: var(--shadow);
+    z-index: 1000;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.lofi-widget:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary);
+}
+
+.lofi-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.lofi-icon {
+    font-size: 1.2rem;
+    color: var(--primary);
+    animation: float 3s ease-in-out infinite;
+}
+
+body[data-theme="vibe"] .lofi-icon {
+    color: var(--secondary);
+    text-shadow: 0 0 10px var(--secondary);
+}
+
+.lofi-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.lofi-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-color);
+}
+
+.lofi-status {
+    font-size: 0.75rem;
+    color: var(--secondary);
+}
+
+.lofi-control {
+    background: var(--primary);
+    color: var(--bg-color);
+    border: none;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-left: 0.5rem;
+}
+
+.lofi-control:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px var(--primary);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     section {

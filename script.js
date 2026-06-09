@@ -227,3 +227,84 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
+// --- VIBE MODE & LOFI PLAYER ---
+const vibeToggle = document.getElementById('vibe-toggle');
+let isVibeMode = false;
+
+if (vibeToggle) {
+    vibeToggle.addEventListener('click', () => {
+        isVibeMode = !isVibeMode;
+        if (isVibeMode) {
+            document.documentElement.setAttribute('data-theme', 'vibe');
+            // Auto-play music if possible
+            if (player && typeof player.playVideo === 'function') {
+                player.playVideo();
+            }
+        } else {
+            // Revert to saved theme (dark or light)
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.removeAttribute('data-theme');
+            }
+        }
+    });
+}
+
+// YouTube Iframe API
+let player;
+const lofiStatus = document.getElementById('lofi-status');
+const lofiPlayBtn = document.getElementById('lofi-play-btn');
+
+function onYouTubeIframeAPIReady() {
+    player = new YT.Player('youtube-player', {
+        height: '0',
+        width: '0',
+        videoId: 'jfKfPfyJRdk', // Lofi Girl Stream
+        playerVars: {
+            'autoplay': 0,
+            'controls': 0,
+            'disablekb': 1,
+            'fs': 0,
+            'modestbranding': 1
+        },
+        events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+        }
+    });
+}
+
+function onPlayerReady(event) {
+    if (lofiStatus) lofiStatus.textContent = "Ready to Play";
+    
+    if (lofiPlayBtn) {
+        lofiPlayBtn.addEventListener('click', () => {
+            const state = player.getPlayerState();
+            if (state === YT.PlayerState.PLAYING || state === YT.PlayerState.BUFFERING) {
+                player.pauseVideo();
+            } else {
+                player.playVideo();
+            }
+        });
+    }
+}
+
+function onPlayerStateChange(event) {
+    if (!lofiStatus || !lofiPlayBtn) return;
+    
+    if (event.data === YT.PlayerState.PLAYING) {
+        lofiStatus.textContent = "Playing...";
+        lofiPlayBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+    } else if (event.data === YT.PlayerState.PAUSED) {
+        lofiStatus.textContent = "Paused";
+        lofiPlayBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+    } else if (event.data === YT.PlayerState.BUFFERING) {
+        lofiStatus.textContent = "Buffering...";
+    }
+}
+
+// Attach YouTube API callback to window so it can be called by the loaded script
+window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
