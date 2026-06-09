@@ -260,15 +260,16 @@ const lofiPlayBtn = document.getElementById('lofi-play-btn');
 
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('youtube-player', {
-        height: '0',
-        width: '0',
+        height: '1',
+        width: '1',
         videoId: 'jfKfPfyJRdk', // Lofi Girl Stream
         playerVars: {
             'autoplay': 0,
             'controls': 0,
             'disablekb': 1,
             'fs': 0,
-            'modestbranding': 1
+            'modestbranding': 1,
+            'origin': window.location.origin
         },
         events: {
             'onReady': onPlayerReady,
