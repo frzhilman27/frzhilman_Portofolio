@@ -287,7 +287,7 @@ p {
 }
 
 .hero-content h1 {
-    height: 16rem; /* Menggunakan height mutlak agar mustahil melompat */
+    min-height: 18rem; /* Ruang yang cukup untuk 3-4 baris teks tanpa terpotong */
 }
 
 .hero-content p {
@@ -823,7 +823,7 @@ body[data-theme="vibe"] .lofi-icon {
     }
     
     .hero-content h1 {
-        height: 13rem; /* Menggunakan height mutlak di HP */
+        min-height: 14rem; /* Ruang yang cukup untuk 4-5 baris di layar kecil */
     }
     
     h2 {
