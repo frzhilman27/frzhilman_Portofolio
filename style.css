@@ -615,7 +615,7 @@ button:hover~.cursor-outline {
 
 /* Footer */
 footer {
-    padding: 2rem 10%;
+    padding: 2rem 10% 7rem 10%; /* Added large bottom padding to prevent fixed widget from covering content */
     border-top: 1px solid var(--card-border);
     background: var(--nav-bg);
     backdrop-filter: blur(12px);
@@ -894,5 +894,13 @@ body[data-theme="vibe"] .lofi-icon {
         flex-direction: column;
         text-align: center;
         gap: 1.5rem;
+    }
+
+    .lofi-widget {
+        bottom: 15px;
+        right: 15px;
+        padding: 0.5rem 1rem;
+        transform: scale(0.9);
+        transform-origin: bottom right;
     }
 }
