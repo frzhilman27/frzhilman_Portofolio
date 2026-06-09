@@ -231,6 +231,9 @@ document.addEventListener("DOMContentLoaded", () => {
 // --- VIBE MODE & LOFI PLAYER ---
 const vibeToggle = document.getElementById('vibe-toggle');
 let isVibeMode = false;
+const lofiAudio = document.getElementById('lofi-audio');
+const lofiStatus = document.getElementById('lofi-status');
+const lofiPlayBtn = document.getElementById('lofi-play-btn');
 
 if (vibeToggle) {
     vibeToggle.addEventListener('click', () => {
@@ -238,8 +241,8 @@ if (vibeToggle) {
         if (isVibeMode) {
             document.documentElement.setAttribute('data-theme', 'vibe');
             // Auto-play music if possible
-            if (player && typeof player.playVideo === 'function') {
-                player.playVideo();
+            if (lofiAudio && lofiAudio.paused) {
+                lofiAudio.play().catch(e => console.log("Auto-play prevented"));
             }
         } else {
             // Revert to saved theme (dark or light)
@@ -253,67 +256,38 @@ if (vibeToggle) {
     });
 }
 
-// YouTube Iframe API
-let player;
-const lofiStatus = document.getElementById('lofi-status');
-const lofiPlayBtn = document.getElementById('lofi-play-btn');
+// HTML5 Audio Logic
+if (lofiPlayBtn && lofiAudio) {
+    lofiStatus.textContent = "Ready to Play";
 
-// Load YouTube API asynchronously to prevent race conditions
-const tag = document.createElement('script');
-tag.src = "https://www.youtube.com/iframe_api";
-const firstScriptTag = document.getElementsByTagName('script')[0];
-firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-window.onYouTubeIframeAPIReady = function() {
-    player = new YT.Player('youtube-player', {
-        height: '1',
-        width: '1',
-        videoId: '5qap5aO4i9A', // Static 1-hour Lofi mix (more reliable than livestreams)
-        playerVars: {
-            'autoplay': 0,
-            'controls': 0,
-            'disablekb': 1,
-            'fs': 0,
-            'modestbranding': 1,
-            'origin': window.location.origin
-        },
-        events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange,
-            'onError': onPlayerError
+    lofiPlayBtn.addEventListener('click', () => {
+        if (lofiAudio.paused) {
+            lofiStatus.textContent = "Buffering...";
+            lofiAudio.play().then(() => {
+                lofiStatus.textContent = "Playing...";
+                lofiPlayBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+            }).catch(error => {
+                lofiStatus.textContent = "Error playing audio";
+                console.error("Audio playback error:", error);
+            });
+        } else {
+            lofiAudio.pause();
+            lofiStatus.textContent = "Paused";
+            lofiPlayBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
         }
     });
-};
 
-function onPlayerReady(event) {
-    if (lofiStatus) lofiStatus.textContent = "Ready to Play";
-    
-    if (lofiPlayBtn) {
-        lofiPlayBtn.addEventListener('click', () => {
-            const state = player.getPlayerState();
-            if (state === YT.PlayerState.PLAYING || state === YT.PlayerState.BUFFERING) {
-                player.pauseVideo();
-            } else {
-                player.playVideo();
-            }
-        });
-    }
-}
-
-function onPlayerStateChange(event) {
-    if (!lofiStatus || !lofiPlayBtn) return;
-    
-    if (event.data === YT.PlayerState.PLAYING) {
+    lofiAudio.addEventListener('playing', () => {
         lofiStatus.textContent = "Playing...";
         lofiPlayBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
-    } else if (event.data === YT.PlayerState.PAUSED) {
+    });
+
+    lofiAudio.addEventListener('pause', () => {
         lofiStatus.textContent = "Paused";
         lofiPlayBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
-    } else if (event.data === YT.PlayerState.BUFFERING) {
-        lofiStatus.textContent = "Buffering...";
-    }
-}
+    });
 
-function onPlayerError(event) {
-    if (lofiStatus) lofiStatus.textContent = "Error Loading Audio";
+    lofiAudio.addEventListener('error', () => {
+        lofiStatus.textContent = "Error Loading Audio";
+    });
 }
