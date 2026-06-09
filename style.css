@@ -92,9 +92,9 @@ section {
 }
 
 h1 {
-    font-size: 5rem;
+    font-size: 3.5rem;
     font-weight: 700;
-    line-height: 1.1;
+    line-height: 1.2;
     margin-bottom: 1.5rem;
 }
 
@@ -287,7 +287,7 @@ p {
 }
 
 .hero-content h1 {
-    min-height: 18rem; /* Ruang yang cukup untuk 3-4 baris teks tanpa terpotong */
+    min-height: 8.5rem; /* Cukup untuk 2 baris teks yang lebih kecil */
 }
 
 .hero-content p {
@@ -819,11 +819,11 @@ body[data-theme="vibe"] .lofi-icon {
     }
 
     h1 {
-        font-size: 2.5rem;
+        font-size: 2rem;
     }
     
     .hero-content h1 {
-        min-height: 14rem; /* Ruang yang cukup untuk 4-5 baris di layar kecil */
+        min-height: 7.5rem; /* Cukup untuk 3 baris di HP */
     }
     
     h2 {
