@@ -133,8 +133,72 @@ function type() {
     setTimeout(type, typeSpeed);
 }
 
+// --- DYNAMIC PROJECTS ---
+const projectsData = [
+    {
+        title: "Sipentar Admin",
+        description: "A premium modern admin dashboard for managing Sipentar data. Features complex data tables, charts, and administrative controls.",
+        image: "sipentar_admin.png",
+        tags: ["React", "JavaScript", "Tailwind CSS"],
+        link: "https://github.com/frzhilman27/sipentar-admin"
+    },
+    {
+        title: "Sipentar Frontend",
+        description: "The main user portal for the Sipentar ecosystem. A dynamic and responsive frontend web application built with modern aesthetics.",
+        image: "sipentar_frontend.png",
+        tags: ["React", "JavaScript", "CSS"],
+        link: "https://github.com/frzhilman27/sipentar-frontend"
+    },
+    {
+        title: "Sipentar Backend",
+        description: "A robust and scalable backend system powering the Sipentar platform, handling data persistence, authentication, and business logic.",
+        image: "sipentar_backend.png",
+        tags: ["Node.js", "Express", "Database"],
+        link: "https://github.com/frzhilman27/sipentar-backend"
+    },
+    {
+        title: "Task API NestJS",
+        description: "A comprehensive REST API for task management built using TypeScript and the NestJS framework, demonstrating solid backend architecture.",
+        image: "task_api.png",
+        tags: ["TypeScript", "NestJS", "API"],
+        link: "https://github.com/frzhilman27/task-api-nestjs"
+    }
+];
+
+const projectContainer = document.getElementById('project-container');
+
+function renderProjects() {
+    if (!projectContainer) return;
+    
+    projectsData.forEach((project, index) => {
+        const tagsHtml = project.tags.map(tag => `<span class="project-tag">${tag}</span>`).join('');
+        
+        const cardHtml = `
+            <div class="project-card" style="opacity: 0; transform: translateY(50px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; transition-delay: ${index * 0.1}s;">
+                <div class="project-image">
+                    <img src="${project.image}" alt="${project.title}">
+                </div>
+                <div class="project-info">
+                    <h3>${project.title}</h3>
+                    <div class="project-tags">
+                        ${tagsHtml}
+                    </div>
+                    <p>${project.description}</p>
+                    <a href="${project.link}" target="_blank" class="btn-text">View Repository →</a>
+                </div>
+            </div>
+        `;
+        projectContainer.insertAdjacentHTML('beforeend', cardHtml);
+    });
+
+    // Observe newly added project cards for scroll animation
+    const newCards = projectContainer.querySelectorAll('.project-card');
+    newCards.forEach(card => observer.observe(card));
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     if (typedTextSpan) {
         setTimeout(type, newTextDelay + 250);
     }
+    renderProjects();
 });
