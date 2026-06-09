@@ -258,11 +258,17 @@ let player;
 const lofiStatus = document.getElementById('lofi-status');
 const lofiPlayBtn = document.getElementById('lofi-play-btn');
 
-function onYouTubeIframeAPIReady() {
+// Load YouTube API asynchronously to prevent race conditions
+const tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+const firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+window.onYouTubeIframeAPIReady = function() {
     player = new YT.Player('youtube-player', {
         height: '1',
         width: '1',
-        videoId: 'jfKfPfyJRdk', // Lofi Girl Stream
+        videoId: '5qap5aO4i9A', // Static 1-hour Lofi mix (more reliable than livestreams)
         playerVars: {
             'autoplay': 0,
             'controls': 0,
@@ -273,10 +279,11 @@ function onYouTubeIframeAPIReady() {
         },
         events: {
             'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
+            'onStateChange': onPlayerStateChange,
+            'onError': onPlayerError
         }
     });
-}
+};
 
 function onPlayerReady(event) {
     if (lofiStatus) lofiStatus.textContent = "Ready to Play";
@@ -307,5 +314,6 @@ function onPlayerStateChange(event) {
     }
 }
 
-// Attach YouTube API callback to window so it can be called by the loaded script
-window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
+function onPlayerError(event) {
+    if (lofiStatus) lofiStatus.textContent = "Error Loading Audio";
+}
